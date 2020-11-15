@@ -18,7 +18,7 @@ export default (provider) => {
       provider.headers)
   } else {
     // Handle oAuth v1.x
-    return new OAuth(
+    const client = new OAuth(
       provider.requestTokenUrl,
       provider.accessTokenUrl,
       provider.clientId,
@@ -27,5 +27,7 @@ export default (provider) => {
       provider.callbackUrl,
       (provider.encoding || 'HMAC-SHA1')
     )
+    client._tokens = {}
+    return client
   }
 }
