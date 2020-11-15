@@ -105,13 +105,15 @@ export default async (req, provider, csrfToken, callback) => {
     // Handle oAuth v1.x
     await client.getOAuthAccessToken(
       oauth_token,
-      null,
+      client._tokens[oauth_token],
       oauth_verifier,
       (error, accessToken, refreshToken, results) => {
         // @TODO Handle error
         if (error || results.error) {
           logger.error('OAUTH_V1_GET_ACCESS_TOKEN_ERROR', error, results)
         }
+        
+        del client._tokens[oauth_token]
 
         client.get(
           provider.profileUrl,
