@@ -30,10 +30,11 @@ export default (provider, csrfToken, callback) => {
     callback(null, url)
   } else {
     // Handle oAuth v1.x
-    client.getOAuthRequestToken((error, oAuthToken) => {
+    client.getOAuthRequestToken((error, oAuthToken, oAuthTokenSecret) => {
       if (error) {
         logger.error('GET_AUTHORISATION_URL_ERROR', error)
       }
+      client._tokens[oAuthToken] = oAuthTokenSecret
       const url = `${provider.authorizationUrl}?oauth_token=${oAuthToken}`
       callback(error, url)
     }, callbackUrl)
