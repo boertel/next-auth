@@ -105,7 +105,7 @@ export default async (req, provider, csrfToken, callback) => {
     // Handle oAuth v1.x
     await client.getOAuthAccessToken(
       oauth_token,
-      clients._tokens[oauth_token],
+      client._tokens[oauth_token],
       oauth_verifier,
       (error, accessToken, refreshToken, results) => {
         // @TODO Handle error
