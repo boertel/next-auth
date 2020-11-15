@@ -112,6 +112,8 @@ export default async (req, provider, csrfToken, callback) => {
         if (error || results.error) {
           logger.error('OAUTH_V1_GET_ACCESS_TOKEN_ERROR', error, results)
         }
+        
+        del client._tokens[oauth_token]
 
         client.get(
           provider.profileUrl,
